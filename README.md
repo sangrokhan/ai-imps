@@ -22,8 +22,8 @@ pip install -r requirements.txt
 ### Running an Implementation
 Use `main.py` with a configuration file:
 ```bash
-python main.py --config configs/den_iclr2018.yaml
-python main.py --config configs/apd_config.yaml
+python main.py --config configs/2018_iclr_den.yaml
+python main.py --config configs/2020_iclr_apd.yaml
 ```
 
 ### Running Tests
