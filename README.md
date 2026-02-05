@@ -19,6 +19,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Data Download
+If the `data/` directory is missing or empty, download the required datasets:
+```bash
+python scripts/download_data.py --dir ./data
+```
+
 ### Running an Implementation
 Use `main.py` with a configuration file:
 ```bash
