@@ -6,7 +6,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | **Q-Learning** (Technical Note: Q-Learning) | 1992 | ✅ 완료 | Watkins & Dayan |
 | 2 | **REINFORCE** (Simple Statistical Gradient-Following...) | 1992 | ✅ 완료 | Williams |
-| 3 | **SARSA** (Online Q-Learning using Connectionist Systems) | 1994 | ⏳ 대기 | Rummery & Niranjan |
+| 3 | **SARSA** (Online Q-Learning using Connectionist Systems) | 1994 | ✅ 완료 | Rummery & Niranjan |
 | 4 | **DQN** (Human-level control through deep RL) | 2015 | ⏳ 대기 | Mnih et al. |
 | 5 | **DDPG** (Continuous control with deep RL) | 2015 | ⏳ 대기 | Lillicrap et al. |
 | 6 | **TRPO** (Trust Region Policy Optimization) | 2015 | ⏳ 대기 | Schulman et al. |
