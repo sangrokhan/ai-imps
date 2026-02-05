@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 from core.base_runner import BaseRunner
 from core.registry import RUNNER_REGISTRY
-from implementations.den_iclr2018.train import train_den_step, get_optimizer
-from implementations.den_iclr2018.expansion import expand_network, select_neurons, split_neurons
+from implementations.y2018_iclr_den.train import train_den_step, get_optimizer
+from implementations.y2018_iclr_den.expansion import expand_network, select_neurons, split_neurons
 import os
 
 @RUNNER_REGISTRY.register("den_runner")

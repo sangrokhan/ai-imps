@@ -6,7 +6,7 @@ A modular framework for implementing and experimenting with AI research papers.
 - `core/`: Abstract base classes and registry system.
 - `common/`: Shared layers, loss functions, and utilities.
 - `runners/`: Standard execution engines (DENRunner, Supervised, RL).
-- `implementations/`: Specific paper implementations (includes original papers).
+- `implementations/`: Specific paper implementations (follows `yYEAR_CONFERENCE_NAME` naming convention).
 - `configs/`: Configuration management (YAML).
 - `tests/`: Project integrity and unit tests.
 

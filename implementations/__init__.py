@@ -1,2 +1,2 @@
-import implementations.apd_iclr2020.model
-import implementations.den_iclr2018.model
+import implementations.y2020_iclr_apd.model
+import implementations.y2018_iclr_den.model
