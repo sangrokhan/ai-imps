@@ -2,7 +2,7 @@ import pytest
 import torch
 import numpy as np
 import copy
-from implementations.q_learning_1992.model import QLearningAgent
+from implementations.y1992_q_learning.model import QLearningAgent
 from implementations.y1992_reinforce.model import REINFORCEAgent
 from implementations.y1994_sarsa.model import SARSAAgent
 from implementations.y2015_dqn.model import DQNAgent
@@ -12,16 +12,24 @@ from implementations.y2016_a3c.model import A3CAgent
 from implementations.y2017_ppo.model import PPOAgent
 from implementations.y2018_sac.model import SACAgent
 from implementations.y2018_td3.model import TD3Agent
+from implementations.y2020_cql.model import CQLModel
+from implementations.y2015_bnn.model import BNNModel
+from implementations.y2021_lora.model import LoRAModel
+from implementations.y2023_adalora.model import AdaLoRAModel
 
 @pytest.fixture
 def rl_config():
     return {
+        "state_dim": 128,
         "action_dim": 4,
+        "input_dim": 128,
+        "output_dim": 4,
         "lr": 0.001,
         "device": "cpu",
         "gamma": 0.99,
         "batch_size": 2,
-        "buffer_capacity": 10
+        "buffer_capacity": 10,
+        "rank": 8
     }
 
 def test_q_learning(rl_config):
@@ -81,3 +89,41 @@ def test_td3(rl_config):
     agent = TD3Agent(rl_config)
     state = np.random.randn(4, 84, 84).astype(np.float32)
     assert agent.select_action(state).shape == (rl_config["action_dim"],)
+
+def test_cql(rl_config):
+    model = CQLModel(rl_config)
+    state = torch.randn(rl_config["batch_size"], rl_config["state_dim"])
+    action = torch.randint(0, rl_config["action_dim"], (rl_config["batch_size"],))
+    reward = torch.randn(rl_config["batch_size"])
+    next_state = torch.randn(rl_config["batch_size"], rl_config["state_dim"])
+    done = torch.zeros(rl_config["batch_size"])
+    
+    target_q_net = copy.deepcopy(model)
+    loss = model.compute_loss(state, action, reward, next_state, done, target_q_net, rl_config["gamma"])
+    assert loss.item() > 0
+
+def test_bnn(rl_config):
+    model = BNNModel(rl_config)
+    x = torch.randn(rl_config["batch_size"], rl_config["input_dim"])
+    targets = torch.randint(0, rl_config["output_dim"], (rl_config["batch_size"],))
+    outputs = model(x)
+    loss = model.compute_loss(outputs, targets)
+    assert loss.item() > 0
+
+def test_lora(rl_config):
+    model = LoRAModel(rl_config)
+    x = torch.randn(rl_config["batch_size"], rl_config["input_dim"])
+    targets = torch.randint(0, rl_config["output_dim"], (rl_config["batch_size"],))
+    outputs = model(x)
+    loss = model.compute_loss(outputs, targets)
+    assert loss.item() > 0
+    # Pre-trained weights should be frozen
+    assert model.layer1.pretrained_w.weight.requires_grad == False
+
+def test_adalora(rl_config):
+    model = AdaLoRAModel(rl_config)
+    x = torch.randn(rl_config["batch_size"], rl_config["input_dim"])
+    targets = torch.randint(0, rl_config["output_dim"], (rl_config["batch_size"],))
+    outputs = model(x)
+    loss = model.compute_loss(outputs, targets)
+    assert loss.item() > 0
