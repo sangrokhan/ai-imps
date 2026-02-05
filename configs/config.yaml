@@ -1,0 +1,16 @@
+# General Settings
+epochs: 10
+batch_size: 32
+lr: 0.001
+device: "cuda"
+output_dir: "outputs"
+save_freq: 5
+
+# Model Selection
+model_type: "APD" # "APD" or "DEN"
+
+# APD Specific Settings
+input_dim: 784
+hidden_dim: 400
+output_dim: 10
+num_tasks: 10
