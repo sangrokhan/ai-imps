@@ -16,15 +16,15 @@ class DENRunner(BaseRunner):
     3. Split & Duplication
     4. Task-specific Retraining
     """
-    def __init__(self, config, model, tasks_data):
+    def __init__(self, config, model, tasks_data=None):
         """
         Args:
             config (dict): Runner configuration.
             model (DEN): DEN model instance.
-            tasks_data (list): List of (train_loader, test_loader) for each task.
+            tasks_data (list, optional): List of (train_loader, test_loader) for each task.
         """
         super().__init__(config, model)
-        self.tasks_data = tasks_data
+        self.tasks_data = tasks_data if tasks_data is not None else []
         self.l1_lambda = config.get('l1_lambda', 0.001)
         self.l2_lambda = config.get('l2_lambda', 0.0001)
         self.lr = config.get('lr', 0.001)

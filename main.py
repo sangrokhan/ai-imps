@@ -3,6 +3,7 @@ import yaml
 import torch
 from core.registry import MODEL_REGISTRY, RUNNER_REGISTRY
 import implementations # Trigger registration
+import runners         # Trigger registration
 
 def main():
     parser = argparse.ArgumentParser(description="AI-IMPS Training Entry Point")

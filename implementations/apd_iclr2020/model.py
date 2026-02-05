@@ -73,6 +73,10 @@ class ResNet18APD(BaseModel):
                 block.add_task(task_id)
         self.linear.add_task(task_id)
 
+    def compute_loss(self, outputs, targets):
+        """Standard Cross Entropy for APD."""
+        return F.cross_entropy(outputs, targets)
+
     def forward(self, x, **kwargs):
         task_id = kwargs.get('task_id', 0)
         out = F.relu(self.bn1(self.conv1(x, task_id)))

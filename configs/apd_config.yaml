@@ -1,10 +1,7 @@
 model:
   name: "apd_resnet18"
   num_classes: 100
+
 runner:
   name: "supervised"
-  epochs: 5
-  lr: 0.01
-  batch_size: 64
-  tasks: 10
-  lambda_sparse: 1e-5
+  epochs: 1

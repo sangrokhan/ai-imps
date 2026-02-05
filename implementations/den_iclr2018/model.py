@@ -31,6 +31,10 @@ class DEN(BaseModel):
             self.task_inputs[task_id] = nn.Linear(in_dim, self.hidden_dims[0])
             self.task_outputs[task_id] = nn.Linear(self.hidden_dims[-1], out_dim)
 
+    def compute_loss(self, outputs, targets):
+        """Standard Cross Entropy for DEN by default."""
+        return nn.functional.cross_entropy(outputs, targets)
+
     def forward(self, x, **kwargs):
         task_id = str(kwargs.get('task_id', 0))
         if task_id not in self.task_inputs:
