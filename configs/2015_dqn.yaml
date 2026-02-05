@@ -1,0 +1,12 @@
+algorithm: "DQN"
+state_dim: 128
+action_dim: 4
+lr: 0.0001
+gamma: 0.99
+epsilon_start: 1.0
+epsilon_min: 0.01
+epsilon_decay: 0.995
+target_update_freq: 10
+batch_size: 64
+buffer_capacity: 10000
+device: "cpu"

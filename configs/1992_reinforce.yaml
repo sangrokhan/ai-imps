@@ -1,0 +1,6 @@
+algorithm: "REINFORCE"
+state_dim: 128
+action_dim: 4
+lr: 0.001
+gamma: 0.99
+device: "cpu"
