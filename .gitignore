@@ -146,3 +146,6 @@ data/
 *.pth
 *.gz
 *.tar
+
+# Experiment outputs
+outputs/
