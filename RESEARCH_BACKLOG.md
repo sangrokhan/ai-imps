@@ -4,8 +4,8 @@
 
 | 순번 | 논문 / 알고리즘 | 연도 | 상태 | 비고 |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | **Q-Learning** (Technical Note: Q-Learning) | 1992 | ⏳ 대기 | Watkins & Dayan |
-| 2 | **REINFORCE** (Simple Statistical Gradient-Following...) | 1992 | ⏳ 대기 | Williams |
+| 1 | **Q-Learning** (Technical Note: Q-Learning) | 1992 | ✅ 완료 | Watkins & Dayan |
+| 2 | **REINFORCE** (Simple Statistical Gradient-Following...) | 1992 | ✅ 완료 | Williams |
 | 3 | **SARSA** (Online Q-Learning using Connectionist Systems) | 1994 | ⏳ 대기 | Rummery & Niranjan |
 | 4 | **DQN** (Human-level control through deep RL) | 2015 | ⏳ 대기 | Mnih et al. |
 | 5 | **DDPG** (Continuous control with deep RL) | 2015 | ⏳ 대기 | Lillicrap et al. |
