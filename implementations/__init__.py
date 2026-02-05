@@ -1,2 +1,2 @@
-from . import apd_iclr2020
-from . import den_iclr2018
+import implementations.apd_iclr2020.model
+import implementations.den_iclr2018.model
