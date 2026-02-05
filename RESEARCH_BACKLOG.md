@@ -11,9 +11,9 @@
 | 5 | **DDPG** (Continuous control with deep RL) | 2015 | ✅ 완료 | Lillicrap et al. |
 | 6 | **TRPO** (Trust Region Policy Optimization) | 2015 | ⏳ 대기 | Schulman et al. |
 | 7 | **A3C** (Asynchronous Methods for Deep RL) | 2016 | ⏳ 대기 | Mnih et al. |
-| 8 | **PPO** (Proximal Policy Optimization Algorithms) | 2017 | ⏳ 대기 | Schulman et al. |
-| 9 | **SAC** (Soft Actor-Critic) | 2018 | ⏳ 대기 | Haarnoja et al. |
-| 10 | **TD3** (Addressing Function Approximation Error...) | 2018 | ⏳ 대기 | Fujimoto et al. |
+| 8 | **PPO** (Proximal Policy Optimization Algorithms) | 2017 | ✅ 완료 | Schulman et al. |
+| 9 | **SAC** (Soft Actor-Critic) | 2018 | ✅ 완료 | Haarnoja et al. |
+| 10 | **TD3** (Addressing Function Approximation Error...) | 2018 | ✅ 완료 | Fujimoto et al. |
 
 ## 작업 지침
 - 모든 구현은 `agent_guide.md`를 준수한다.
