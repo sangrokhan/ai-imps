@@ -34,3 +34,21 @@ class ExperimentLogger:
 
     def close(self):
         self.writer.close()
+
+def setup_logger(output_dir):
+    os.makedirs(output_dir, exist_ok=True)
+    logger = logging.getLogger("ResearchFramework")
+    logger.setLevel(logging.INFO)
+    if not logger.handlers:
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        
+        # File handler
+        fh = logging.FileHandler(os.path.join(output_dir, "experiment.log"))
+        fh.setFormatter(formatter)
+        logger.addHandler(fh)
+        
+        # Stream handler
+        sh = logging.StreamHandler()
+        sh.setFormatter(formatter)
+        logger.addHandler(sh)
+    return logger
