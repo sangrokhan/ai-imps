@@ -11,3 +11,4 @@ runner:
   drift_threshold: 0.02
   input_dim: 784  # MNIST example
   output_dim: 10
+  output_dir: "outputs/den_mnist"

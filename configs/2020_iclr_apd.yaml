@@ -5,3 +5,4 @@ model:
 runner:
   name: "supervised"
   epochs: 1
+  output_dir: "outputs/apd_cifar100"
