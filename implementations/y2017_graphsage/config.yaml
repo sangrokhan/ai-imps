@@ -1,0 +1,11 @@
+# Inductive Representation Learning on Large Graphs (NeurIPS 2017)
+# Note: Defaults for Cora dataset
+model_name: "graphsage"
+input_dim: 1433
+hidden_dim: 128
+output_dim: 7
+dropout: 0.5
+lr: 0.001
+epochs: 100
+dataset: "cora"
+output_dir: "outputs/graphsage"
