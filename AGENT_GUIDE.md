@@ -24,7 +24,7 @@ The project follows a strict modular structure. Agents must respect this organiz
 │       ├── model.py      # Core logic and classes
 │       ├── config.yaml   # Paper-specific hyperparameters
 │       ├── runner.py     # Optional: Custom training logic
-│       └── [paper_id].pdf # The source research paper
+│       └── [paper_id].pdf # The source research paper (Put it here directly)
 ├── configs/              # Global configuration templates
 │   ├── default.yaml      # Project-wide defaults (device, seed, paths)
 │   ├── base_rl.yaml      # RL-specific defaults
@@ -38,6 +38,7 @@ The project follows a strict modular structure. Agents must respect this organiz
 ### 2.1. Self-Containment
 Every implementation must be **self-contained** within its folder. 
 - **PDF**: The paper PDF must reside inside the folder.
+- **Direct Path**: DO NOT create a separate "papers/" subdirectory. Place the PDF directly in the implementation folder root.
 - **Config**: The `config.yaml` must define everything needed to run that specific paper.
 - **Registration**: All models and runners must use `@MODEL_REGISTRY.register("name")` or `@RUNNER_REGISTRY.register("name")`.
 
