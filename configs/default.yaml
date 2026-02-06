@@ -1,0 +1,7 @@
+# Global default settings for all experiments
+device: "cuda"          # "cuda", "cpu", or "mps"
+seed: 42
+output_dir: "outputs"   # Base directory for checkpoints and logs
+log_level: "INFO"
+save_freq: 10           # Default checkpoint frequency (epochs or steps)
+log_interval: 100       # Default logging frequency
