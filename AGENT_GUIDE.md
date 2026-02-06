@@ -40,16 +40,17 @@ Each paper implementation must be self-contained within its specific folder unde
 implementations/
 └── [paper_id]/
     ├── model.py        # Implementation code (PyTorch/etc)
+    ├── runner.py       # Custom runner if paper-specific logic is needed
     ├── config.yaml     # Paper-specific hyperparameters and settings
     └── [paper_id].pdf  # Original research paper PDF
 ```
 
-## 2. Preparation
+## 3. Preparation
 Before starting a new implementation:
 - Read the paper carefully to identify the core architecture, loss functions, and hyperparameters.
 - Check if any components (layers, utilities) already exist in `common/`.
 
-## 3. Implementation Steps
+## 4. Implementation Steps
 
 ### Step 1: Create the Workspace
 Create a folder under `implementations/[paper_id]`.
@@ -84,19 +85,20 @@ Store the original paper PDF directly in the implementation folder as `[paper_id
 ### Step 5: Custom Logic (If needed)
 - For **Supervised Learning**: If the loss or data loading is unique, add them to `common/` or keep them paper-specific within the implementation folder.
 - For **Reinforcement Learning**: Define the environment in `implementations/[paper_id]/env.py` if it's custom.
+- **Custom Runners**: If a paper requires a unique training loop (e.g., DEN's 4-stage process), create `runner.py` inside the implementation folder and register it with `@RUNNER_REGISTRY.register`.
 
-## 4. Coding Standards
+## 5. Coding Standards
 - **Docstrings**: Every class and major function must have a docstring.
 - **Type Hinting**: Use Python type hints for better readability and agent debugging.
 - **Logging**: Use the unified logger from `common.utils.logger`.
 - **Config-Driven**: Avoid hardcoding values; always use the `config` object.
 
-## 5. Verification
+## 6. Verification
 - Implement unit tests for custom layers in `tests/`.
 - Run a small-scale "sanity check" training run to ensure no runtime errors.
 - Compare the model output with the paper's reported values if possible.
 
-## 6. Paper-Specific README
+## 7. Paper-Specific README
 Always include a `README.md` in the implementation folder with:
 - Link to the original paper.
 - Summary of implemented features.

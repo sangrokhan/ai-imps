@@ -4,6 +4,7 @@ import torch.nn.functional as F
 import numpy as np
 import copy
 from core.rl_base import RLAgent
+from core.registry import MODEL_REGISTRY
 from core.utils.replay_buffer import ReplayBuffer
 
 class DQNNetwork(nn.Module):
@@ -23,6 +24,7 @@ class DQNNetwork(nn.Module):
         x = F.relu(self.fc1(x))
         return self.fc2(x)
 
+@MODEL_REGISTRY.register("dqn")
 class DQNAgent(RLAgent):
     """
     Mnih, V., et al. (2015). Human-level control through deep reinforcement learning.
