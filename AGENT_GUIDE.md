@@ -2,13 +2,43 @@
 
 This guide provides instructions for AI agents to implement research papers within the `ai-imps` framework.
 
-## 1. Directory Structure
+## 1. Project Directory Structure
 
-All implementations must follow this structure to ensure consistency:
+The entire project follows a modular structure. Agents must respect this organization when adding or modifying code.
+
+```text
+~/repo/ai-imps/
+├── core/                 # Core abstractions (Interfaces)
+│   ├── base_model.py     # Abstract class for all models
+│   ├── base_runner.py    # Training/Interaction loop logic
+│   ├── base_data.py      # Data loading abstractions
+│   └── registry.py       # Dynamic component registration
+├── common/               # Shared utilities and modules
+│   ├── layers/           # Common neural network layers
+│   ├── losses/           # Custom loss functions
+│   ├── metrics/          # Evaluation metrics
+│   └── utils/            # Logging, IO, etc.
+├── runners/              # Standard execution engines
+│   ├── supervised.py     # Standard SL training loop
+│   └── reinforcement.py  # Standard RL interaction loop (Env-Agent)
+├── implementations/      # Paper-specific implementations (Self-contained)
+│   └── [paper_id]/       # e.g., y2015_dqn, y2017_ppo
+│       ├── model.py      # Implementation code
+│       ├── config.yaml   # Paper-specific settings
+│       └── [paper_id].pdf # Original research paper PDF
+├── configs/              # Global or shared configuration files
+├── data/                 # Data storage and processing scripts
+├── tests/                # Unit and integration tests
+└── main.py               # Central entry point
+```
+
+## 2. Implementation Rules for Papers
+
+Each paper implementation must be self-contained within its specific folder under `implementations/`.
 
 ```text
 implementations/
-└── [paper_id]/         # e.g., y2015_dqn, y2017_ppo
+└── [paper_id]/
     ├── model.py        # Implementation code (PyTorch/etc)
     ├── config.yaml     # Paper-specific hyperparameters and settings
     └── [paper_id].pdf  # Original research paper PDF
