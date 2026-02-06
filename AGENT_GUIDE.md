@@ -2,17 +2,29 @@
 
 This guide provides instructions for AI agents to implement research papers within the `ai-imps` framework.
 
-## 1. Preparation
+## 1. Directory Structure
+
+All implementations must follow this structure to ensure consistency:
+
+```text
+implementations/
+└── [paper_id]/         # e.g., y2015_dqn, y2017_ppo
+    ├── model.py        # Implementation code (PyTorch/etc)
+    ├── config.yaml     # Paper-specific hyperparameters and settings
+    └── [paper_id].pdf  # Original research paper PDF
+```
+
+## 2. Preparation
 Before starting a new implementation:
 - Read the paper carefully to identify the core architecture, loss functions, and hyperparameters.
 - Check if any components (layers, utilities) already exist in `common/`.
 
-## 2. Implementation Steps
+## 3. Implementation Steps
 
 ### Step 1: Create the Workspace
 Create a folder under `implementations/[paper_id]`.
 ```bash
-mkdir -p implementations/my_new_paper
+mkdir -p implementations/y2024_new_paper
 ```
 
 ### Step 2: Define the Model
@@ -30,33 +42,31 @@ class MyModel(BaseModel):
         return x
 ```
 
-### Step 3: Configure Training/Interaction
-Create a dedicated config file under `configs/[paper_id].yaml` (e.g., `configs/y2021_lora.yaml`) specifying:
-- `model_name`: Used by Registry.
-- `runner_type`: `supervised` or `reinforcement`.
-- `hyperparameters`: learning_rate, batch_size, etc.
-- **Do not use a single central config file for all models.**
+### Step 3: Configure Settings
+Create a `config.yaml` file **within the paper's folder**.
+- Define `model_name`: Used by Registry.
+- Define `runner_type`: `supervised` or `reinforcement`.
+- Define `hyperparameters`: learning_rate, batch_size, etc.
 
 ### Step 4: Paper Storage
-- Store original paper PDFs in the central folder `implementations/papers/` with the naming convention `[paper_id].pdf`.
-- **Do not create separate `papers/` folders inside individual implementation directories.**
+Store the original paper PDF directly in the implementation folder as `[paper_id].pdf`.
 
-### Step 4: Custom Logic (If needed)
+### Step 5: Custom Logic (If needed)
 - For **Supervised Learning**: If the loss or data loading is unique, add them to `common/` or keep them paper-specific within the implementation folder.
 - For **Reinforcement Learning**: Define the environment in `implementations/[paper_id]/env.py` if it's custom.
 
-## 3. Coding Standards
+## 4. Coding Standards
 - **Docstrings**: Every class and major function must have a docstring.
 - **Type Hinting**: Use Python type hints for better readability and agent debugging.
 - **Logging**: Use the unified logger from `common.utils.logger`.
 - **Config-Driven**: Avoid hardcoding values; always use the `config` object.
 
-## 4. Verification
+## 5. Verification
 - Implement unit tests for custom layers in `tests/`.
 - Run a small-scale "sanity check" training run to ensure no runtime errors.
 - Compare the model output with the paper's reported values if possible.
 
-## 5. Paper-Specific README
+## 6. Paper-Specific README
 Always include a `README.md` in the implementation folder with:
 - Link to the original paper.
 - Summary of implemented features.
