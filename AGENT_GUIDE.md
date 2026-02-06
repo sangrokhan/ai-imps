@@ -1,105 +1,96 @@
 # Coding Agent Guide: Implementing New Papers
 
-This guide provides instructions for AI agents to implement research papers within the `ai-imps` framework.
+This guide defines the standardized workflow and coding standards for implementing research papers within the `ai-imps` framework.
 
 ## 1. Project Directory Structure
 
-The entire project follows a modular structure. Agents must respect this organization when adding or modifying code.
+The project follows a strict modular structure. Agents must respect this organization:
 
 ```text
 ~/repo/ai-imps/
 ├── core/                 # Core abstractions (Interfaces)
-│   ├── base_model.py     # Abstract class for all models
-│   ├── base_runner.py    # Training/Interaction loop logic
-│   ├── base_data.py      # Data loading abstractions
-│   └── registry.py       # Dynamic component registration
-├── common/               # Shared utilities and modules
-│   ├── layers/           # Common neural network layers
-│   ├── losses/           # Custom loss functions
-│   ├── metrics/          # Evaluation metrics
-│   └── utils/            # Logging, IO, etc.
+│   ├── base_model.py     # BaseModel (Inherit for all implementations)
+│   ├── base_runner.py    # BaseRunner (Inherit for custom training loops)
+│   └── registry.py       # MODEL_REGISTRY, RUNNER_REGISTRY
+├── common/               # Shared utilities
+│   ├── layers/           # Reusable NN blocks (e.g., Attention, ResNet blocks)
+│   ├── losses/           # Shared loss functions
+│   └── utils/            # Logger, ReplayBuffer, IO utilities
 ├── runners/              # Standard execution engines
-│   ├── supervised.py     # Standard SL training loop
-│   └── reinforcement.py  # Standard RL interaction loop (Env-Agent)
+│   ├── supervised.py     # Default SL trainer
+│   └── reinforcement.py  # Default RL trainer
 ├── implementations/      # Paper-specific implementations (Self-contained)
-│   └── [paper_id]/       # e.g., y2015_dqn, y2017_ppo
-│       ├── model.py      # Implementation code
-│       ├── config.yaml   # Paper-specific settings
-│       └── [paper_id].pdf # Original research paper PDF
-├── configs/              # Global or shared configuration files
-├── data/                 # Data storage and processing scripts
+│   └── [paper_id]/       # e.g., y2015_dqn (year_lowercase_id)
+│       ├── model.py      # Core logic and classes
+│       ├── config.yaml   # Paper-specific hyperparameters
+│       ├── runner.py     # Optional: Custom training logic
+│       └── [paper_id].pdf # The source research paper
+├── configs/              # Global configuration templates
+│   ├── default.yaml      # Project-wide defaults (device, seed, paths)
+│   ├── base_rl.yaml      # RL-specific defaults
+│   └── base_supervised.yaml # SL-specific defaults
 ├── tests/                # Unit and integration tests
 └── main.py               # Central entry point
 ```
 
-## 2. Implementation Rules for Papers
+## 2. Implementation Rules
 
-Each paper implementation must be self-contained within its specific folder under `implementations/`.
+### 2.1. Self-Containment
+Every implementation must be **self-contained** within its folder. 
+- **PDF**: The paper PDF must reside inside the folder.
+- **Config**: The `config.yaml` must define everything needed to run that specific paper.
+- **Registration**: All models and runners must use `@MODEL_REGISTRY.register("name")` or `@RUNNER_REGISTRY.register("name")`.
 
-```text
-implementations/
-└── [paper_id]/
-    ├── model.py        # Implementation code (PyTorch/etc)
-    ├── runner.py       # Custom runner if paper-specific logic is needed
-    ├── config.yaml     # Paper-specific hyperparameters and settings
-    └── [paper_id].pdf  # Original research paper PDF
-```
+### 2.2. Folder Naming Convention
+Use `yYYYY_name` (e.g., `y2015_dqn`, `y2017_ppo`).
 
-## 3. Preparation
-Before starting a new implementation:
-- Read the paper carefully to identify the core architecture, loss functions, and hyperparameters.
-- Check if any components (layers, utilities) already exist in `common/`.
+## 3. Workflow for Agents
 
-## 4. Implementation Steps
+### Step 1: Environment & Branching
+- Always work in a separate branch (e.g., `feat/paper-name`).
+- Commit frequently with descriptive messages and **Sign-off (`-s`)**.
 
-### Step 1: Create the Workspace
-Create a folder under `implementations/[paper_id]`.
-```bash
-mkdir -p implementations/y2024_new_paper
-```
+### Step 2: Paper Analysis
+- Read the PDF in `implementations/[paper_id]/`.
+- Identify: Input/Output shapes, Activation functions, Loss functions, and Hyperparameters.
 
-### Step 2: Define the Model
-Inherit from `core.BaseModel`. Ensure you support the standard `forward` interface.
+### Step 3: Coding the Model (`model.py`)
+- Inherit from `BaseModel`.
+- Register the class:
 ```python
-from core.base_model import BaseModel
-
-class MyModel(BaseModel):
-    def __init__(self, config):
-        super().__init__(config)
-        # Define layers
-    
-    def forward(self, x):
-        # Implementation
-        return x
+@MODEL_REGISTRY.register("paper_name")
+class PaperModel(BaseModel):
+    ...
 ```
 
-### Step 3: Configure Settings
-Create a `config.yaml` file **within the paper's folder**.
-- Define `model_name`: Used by Registry.
-- Define `runner_type`: `supervised` or `reinforcement`.
-- Define `hyperparameters`: learning_rate, batch_size, etc.
+### Step 4: Configuration (`config.yaml`)
+- Refer to `configs/default.yaml` and `configs/base_*.yaml`.
+- Define only the values that are specific to this paper or need overriding.
 
-### Step 4: Paper Storage
-Store the original paper PDF directly in the implementation folder as `[paper_id].pdf`.
+### Step 5: Testing & PR
+- Create a test case in `tests/` or a local verification script.
+- Push your changes to the remote branch immediately after implementation.
+- **Create a Pull Request** so the user can review the results on GitHub.
 
-### Step 5: Custom Logic (If needed)
-- For **Supervised Learning**: If the loss or data loading is unique, add them to `common/` or keep them paper-specific within the implementation folder.
-- For **Reinforcement Learning**: Define the environment in `implementations/[paper_id]/env.py` if it's custom.
-- **Custom Runners**: If a paper requires a unique training loop (e.g., DEN's 4-stage process), create `runner.py` inside the implementation folder and register it with `@RUNNER_REGISTRY.register`.
+## 4. Coding Standards
 
-## 5. Coding Standards
-- **Docstrings**: Every class and major function must have a docstring.
-- **Type Hinting**: Use Python type hints for better readability and agent debugging.
-- **Logging**: Use the unified logger from `common.utils.logger`.
-- **Config-Driven**: Avoid hardcoding values; always use the `config` object.
+### 4.1. Avoid Hardcoding
+Use the `config` object for all hyperparameters. 
+- Bad: `self.lr = 0.001`
+- Good: `self.lr = config.get("lr", 0.001)`
 
-## 6. Verification
-- Implement unit tests for custom layers in `tests/`.
-- Run a small-scale "sanity check" training run to ensure no runtime errors.
-- Compare the model output with the paper's reported values if possible.
+### 4.2. Logging & Error Handling
+- Use `self.logger` (inherited from `BaseModel`/`BaseRunner`).
+- Use `try-except` blocks for data loading or complex mathematical operations.
 
-## 7. Paper-Specific README
-Always include a `README.md` in the implementation folder with:
-- Link to the original paper.
-- Summary of implemented features.
-- Instructions to reproduce results.
+### 4.3. Documentation
+- Use Python Type Hints for all function signatures.
+- Add Docstrings following the Google style.
+
+## 5. Verification Checklist
+- [ ] Model inherits from `BaseModel`.
+- [ ] Model/Runner is registered in `REGISTRY`.
+- [ ] `config.yaml` is present and correctly formatted.
+- [ ] Paper PDF is in the same folder.
+- [ ] Code passes basic unit tests.
+- [ ] Changes are pushed and PR is created.
