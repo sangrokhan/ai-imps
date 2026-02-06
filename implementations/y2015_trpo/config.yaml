@@ -1,0 +1,10 @@
+# TRPOAgent configuration
+model_name: "trpo"
+runner_type: "reinforcement"
+
+# Hyperparameters
+action_dim: 4
+max_kl: 0.01
+damping: 0.1
+gamma: 0.99
+device: "cpu"
