@@ -31,10 +31,15 @@ class MyModel(BaseModel):
 ```
 
 ### Step 3: Configure Training/Interaction
-Define a `config.yaml` specifying:
+Create a dedicated config file under `configs/[paper_id].yaml` (e.g., `configs/y2021_lora.yaml`) specifying:
 - `model_name`: Used by Registry.
 - `runner_type`: `supervised` or `reinforcement`.
 - `hyperparameters`: learning_rate, batch_size, etc.
+- **Do not use a single central config file for all models.**
+
+### Step 4: Paper Storage
+- Store original paper PDFs in the central folder `implementations/papers/` with the naming convention `[paper_id].pdf`.
+- **Do not create separate `papers/` folders inside individual implementation directories.**
 
 ### Step 4: Custom Logic (If needed)
 - For **Supervised Learning**: If the loss or data loading is unique, add them to `common/` or keep them paper-specific within the implementation folder.
