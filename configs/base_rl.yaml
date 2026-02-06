@@ -1,0 +1,13 @@
+# Base configuration for Reinforcement Learning
+runner_type: "reinforcement"
+
+# Common RL hyperparameters
+gamma: 0.99
+tau: 0.005              # Target network update rate
+buffer_capacity: 100000
+batch_size: 64
+learning_starts: 1000   # Steps before starting updates
+
+# Evaluation settings
+eval_freq: 5000         # Steps between evaluations
+eval_episodes: 5        # Number of episodes for evaluation

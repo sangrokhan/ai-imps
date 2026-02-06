@@ -1,0 +1,12 @@
+# Base configuration for Supervised Learning
+runner_type: "supervised"
+
+# Common SL hyperparameters
+batch_size: 128
+lr: 0.001
+optimizer: "adam"
+weight_decay: 0.0
+epochs: 100
+
+# Validation settings
+val_freq: 1             # Frequency of validation (in epochs)
