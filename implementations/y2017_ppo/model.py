@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Categorical
 from core.rl_base import RLAgent
+from core.registry import MODEL_REGISTRY
 import copy
 
 class PPOActorCritic(nn.Module):
@@ -23,6 +24,7 @@ class PPOActorCritic(nn.Module):
         x = F.relu(self.fc(x))
         return F.softmax(self.actor(x), dim=-1), self.critic(x)
 
+@MODEL_REGISTRY.register("ppo")
 class PPOAgent(RLAgent):
     """Schulman et al. (2017). Proximal Policy Optimization Algorithms."""
     def __init__(self, config):
