@@ -66,6 +66,7 @@ class PaperModel(BaseModel):
 ### Step 4: Configuration (`config.yaml`)
 - Refer to `configs/default.yaml` and `configs/base_*.yaml`.
 - Define only the values that are specific to this paper or need overriding.
+- **Device & Seed**: By default, `main.py` handles `device: "auto"` (CUDA -> MPS -> CPU fallback) and sets a global random seed. Only specify `device` in your paper config if it *must* run on a specific hardware.
 
 ### Step 5: Testing & PR
 - Create a test case in `tests/` or a local verification script.
