@@ -1,0 +1,13 @@
+# SACAgent configuration
+model_name: "sac"
+runner_type: "reinforcement"
+
+# Hyperparameters
+action_dim: 1
+lr: 0.0003
+alpha: 0.2
+batch_size: 256
+gamma: 0.99
+tau: 0.005
+buffer_capacity: 1000000
+device: "cpu"
