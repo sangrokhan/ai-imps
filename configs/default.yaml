@@ -1,5 +1,5 @@
 # Global default settings for all experiments
-device: "cuda"          # "cuda", "cpu", or "mps"
+device: "auto"          # "auto" (detects cuda/mps/cpu), "cuda", "cpu", or "mps"
 seed: 42
 output_dir: "outputs"   # Base directory for checkpoints and logs
 log_level: "INFO"

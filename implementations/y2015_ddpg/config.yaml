@@ -10,7 +10,6 @@ batch_size: 64
 gamma: 0.99
 tau: 0.005
 buffer_capacity: 50000
-device: "cpu"
 
 # Exploration
 noise_std: 0.1
