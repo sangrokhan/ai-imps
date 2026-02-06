@@ -1,0 +1,8 @@
+model_type: "LoRA"
+input_dim: 784
+hidden_dim: 400
+output_dim: 10
+rank: 8
+lr: 0.001
+epochs: 20
+output_dir: "outputs/lora"

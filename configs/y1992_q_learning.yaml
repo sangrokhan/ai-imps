@@ -1,0 +1,12 @@
+algorithm: "Q-Learning"
+env_id: "MsPacman-v4"
+num_episodes: 500
+eval_freq: 20
+log_interval: 100
+device: "cpu"
+output_dir: "outputs/q_learning"
+gamma: 0.99
+lr: 0.00025
+epsilon_start: 1.0
+epsilon_min: 0.1
+epsilon_decay: 0.995

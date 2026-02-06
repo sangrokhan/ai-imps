@@ -1,0 +1,6 @@
+algorithm: "CQL"
+env_id: "CartPole-v1"
+num_episodes: 500
+cql_alpha: 1.0
+device: "cpu"
+output_dir: "outputs/cql"
