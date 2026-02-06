@@ -1,0 +1,13 @@
+# Graph Attention Networks (ICLR 2018)
+model_name: "gat"
+input_dim: 1433
+hidden_dim: 8
+output_dim: 7
+dropout: 0.6
+alpha: 0.2
+n_heads: 8
+lr: 0.005
+weight_decay: 0.0005
+epochs: 100
+dataset: "cora"
+output_dir: "outputs/gat"
