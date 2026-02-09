@@ -25,6 +25,13 @@ class GraphormerLayer(nn.Module):
         # x: [B, N, d_model]
         # spatial_bias: [B, N, N] (SPD-based bias)
         
+        # PyTorch MultiheadAttention warns when key_padding_mask (bool) and attn_mask (float) are mixed.
+        # Since spatial_bias is a float additive bias, we convert padding_mask to float if it's bool.
+        if spatial_bias is not None and padding_mask is not None:
+            if padding_mask.dtype == torch.bool and not spatial_bias.dtype == torch.bool:
+                new_padding_mask = torch.zeros_like(padding_mask, dtype=spatial_bias.dtype)
+                padding_mask = new_padding_mask.masked_fill(padding_mask, float("-inf"))
+
         # Self-attention with Spatial Bias
         attn_output, _ = self.self_attn(x, x, x, key_padding_mask=padding_mask, attn_mask=spatial_bias)
         x = x + self.dropout1(attn_output)
