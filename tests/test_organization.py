@@ -1,7 +1,8 @@
 import os
 
 def test_organization():
-    base_dir = "/home/han/repo/ai-imps/implementations"
+    # Get base directory relative to this test file
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "implementations"))
     folders = [
         "y1992_q_learning", "y1992_reinforce", "y1994_sarsa",
         "y2015_bnn", "y2015_ddpg", "y2015_dqn", "y2015_trpo",
