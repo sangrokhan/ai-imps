@@ -1,0 +1,11 @@
+model:
+  name: "DPO"
+  policy_arch: "MLP" # Or Transformer
+  state_dim: 128
+  action_dim: 10
+  beta: 0.1
+  
+runner:
+  name: "SupervisedRunner" # DPO is offline/supervised-style training on preference pairs
+  batch_size: 32
+  lr: 1e-5
