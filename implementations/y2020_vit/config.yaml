@@ -1,0 +1,21 @@
+model:
+  name: "ViT"
+  img_size: 32  # CIFAR-100 default
+  patch_size: 4
+  in_channels: 3
+  num_classes: 100
+  embed_dim: 256
+  depth: 6
+  num_heads: 8
+  mlp_ratio: 4.0
+  qkv_bias: True
+  drop_rate: 0.1
+  attn_drop_rate: 0.1
+
+runner:
+  name: "SupervisedRunner"
+  epochs: 100
+  batch_size: 128
+  optimizer: "AdamW"
+  lr: 0.001
+  weight_decay: 0.05
